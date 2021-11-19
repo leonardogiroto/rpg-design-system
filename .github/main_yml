@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Config NPM
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN \n unsafe-perm = true" > .npmrc
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Builds project
+        run: npm run build
+        
+      - name: Publishes to npm
+        run: npm publish
