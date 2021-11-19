@@ -1,37 +1,34 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
-import external from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
+import babel from "@rollup/plugin-babel";
+import resolve from "@rollup/plugin-node-resolve";
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import pkg from "./package.json";
+
+const EXTERNAL = Object.keys(pkg.devDependencies);
+const EXTENSIONS = [".ts", ".tsx"];
 
 export default {
   input: 'src/index.ts',
   output: [
     {
-      file: 'dist/index.cjs.js',
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: true,
-      name: 'rpg-design-system'
-    },
-    {
-      file: 'dist/index.esm.js',
+      dir: 'dist',
       format: 'esm',
       exports: 'named',
       sourcemap: true,
-      name: 'rpg-design-system'
+      name: 'rpg-design-system',
+      preserveModules: true
     }
   ],
   plugins: [
-    external(),
-    resolve(),
-    commonjs(),
-    typescript({ tsconfig: './tsconfig.json' }),
-    postcss(),
-    terser()
+    peerDepsExternal(),
+    resolve({
+      extensions: EXTENSIONS,
+    }),
+    babel({
+      extensions: EXTENSIONS,
+      babelHelpers: "runtime",
+      include: EXTENSIONS.map(ext => `src/**/*${ext}`),
+      plugins: ["@babel/plugin-transform-runtime"]
+    })
   ],
-  external: [
-    'react',
-  ],
+  external: EXTERNAL,
 }

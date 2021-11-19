@@ -1,6 +1,6 @@
 {
   "name": "rpg-design-system",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -10,15 +10,21 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c"
+    "build": "rimraf dist && tsc --emitDeclarationOnly && rollup --config",
+    "tsc": "tsc"
   },
   "author": "Leonardo Giroto",
   "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
-    "@rollup/plugin-typescript": "^8.3.0",
     "@types/react": "^17.0.35",
     "postcss": "^8.3.11",
     "rimraf": "^3.0.2",

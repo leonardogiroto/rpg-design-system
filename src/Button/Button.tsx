@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export interface ButtonPops {
-  text: string;
+export interface ButtonProps {
+  color: 'primary' | 'highlight';
 }
 
-export const Button = ({ text }: ButtonPops) => {
-  return <button>{text}</button>
+export const Button: FC<ButtonProps> = ({ children }) => {
+  return <button>{children}</button>
 }
