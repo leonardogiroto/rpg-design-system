@@ -27,6 +27,7 @@ export default {
       extensions: EXTENSIONS,
       babelHelpers: "runtime",
       include: EXTENSIONS.map(ext => `src/**/*${ext}`),
+      exclude: ['src/**/*.stories.*'],
       plugins: ["@babel/plugin-transform-runtime"]
     })
   ],

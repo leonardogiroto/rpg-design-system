@@ -106,5 +106,10 @@
     "src/**/*.ts",
     "src/**/*.tsx"
   ],
-  "exclude": ["node_modules", "dist", "rollup.config.js"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "rollup.config.js",
+    "src/**/*.stories.*"
+  ]
 }
