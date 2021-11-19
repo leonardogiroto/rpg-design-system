@@ -5,23 +5,22 @@ import { terser } from 'rollup-plugin-terser';
 import external from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 
-const packageJson = require('./package.json');
-
 export default {
   input: 'src/index.ts',
   output: [
     {
-      file: packageJson.main,
+      file: 'dist/index.cjs.js',
       format: 'cjs',
       exports: 'named',
       sourcemap: true,
-      name: 'react-lib'
+      name: 'rpg-design-system'
     },
     {
-      file: packageJson.module,
+      file: 'dist/index.esm.js',
       format: 'esm',
       exports: 'named',
-      sourcemap: true
+      sourcemap: true,
+      name: 'rpg-design-system'
     }
   ],
   plugins: [
@@ -31,5 +30,8 @@ export default {
     typescript({ tsconfig: './tsconfig.json' }),
     postcss(),
     terser()
-  ]
+  ],
+  external: [
+    'react',
+  ],
 }
